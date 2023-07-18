@@ -1,5 +1,8 @@
 package factoryDAOs;
 
-public class DAOFactory {
+public abstract class DAOFactory {
     
+    public abstract void getVehiculo();
+    public abstract void getRegistro();
+    public abstract void getCliente();
 }
