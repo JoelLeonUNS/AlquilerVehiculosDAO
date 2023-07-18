@@ -1,4 +1,4 @@
-package app;
+package AppMain;
 
 public class main {
 
