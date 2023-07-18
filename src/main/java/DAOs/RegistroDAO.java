@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public abstract class RegistroDAO<T> {
-    public Connection conector = Conexion.getInstance();
+    public Connection conector;
     public abstract T create(T obj);
     public abstract T delete(T obj);
     public abstract T update(T obj);
