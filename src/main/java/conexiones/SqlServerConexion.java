@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-public class MySqlConexion {
+public class SqlServerConexion {
     
     private static Connection conector;
     private static String url;
@@ -17,12 +17,12 @@ public class MySqlConexion {
     private static String conexion;
 
     public static void setDatos(String nombreServidor, String numeroPuerto, String nombreBaseDato, String nombreUsuario, String clave) {
-        MySqlConexion.url = "jdbc:mysql://";
-        MySqlConexion.nombreServidor = nombreServidor;
-        MySqlConexion.numeroPuerto = numeroPuerto;
-        MySqlConexion.nombreBaseDato = nombreBaseDato;
-        MySqlConexion.nombreUsuario = nombreUsuario;
-        MySqlConexion.clave = clave;
+        SqlServerConexion.url = "jdbc:sqlserver://";
+        SqlServerConexion.nombreServidor = nombreServidor;
+        SqlServerConexion.numeroPuerto = numeroPuerto;
+        SqlServerConexion.nombreBaseDato = nombreBaseDato;
+        SqlServerConexion.nombreUsuario = nombreUsuario;
+        SqlServerConexion.clave = clave;
     }
     
     private static void conectar() {
@@ -45,4 +45,5 @@ public class MySqlConexion {
     public static void desconectar() throws SQLException  {
 	conector.close();
     }
+    
 }

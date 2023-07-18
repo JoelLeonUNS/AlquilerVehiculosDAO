@@ -1,5 +1,7 @@
 package pojo;
 
-public class Vehiculo {
-    
+public abstract class Vehiculo {
+    private int idVehiculo;
+    private String descripcion;
+    private double precioHora;
 }
