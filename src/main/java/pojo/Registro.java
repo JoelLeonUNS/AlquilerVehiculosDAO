@@ -3,7 +3,8 @@ package pojo;
 import java.time.LocalTime;
 
 public class Registro {
-    LocalTime horaEntrega;
+    private int id;
+    LocalTime horaRecogida;
     private int cantidadHoras;
     
 }

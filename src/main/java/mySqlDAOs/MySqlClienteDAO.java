@@ -1,4 +1,4 @@
-package MySqlDAO;
+package mySqlDAOs;
 
 public class MySqlClienteDAO {
     

@@ -1,5 +1,5 @@
 package pojo;
 
-public class Carro {
+public class Carro extends Vehiculo{
     
 }

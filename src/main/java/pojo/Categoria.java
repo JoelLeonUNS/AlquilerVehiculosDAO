@@ -1,16 +1,22 @@
 package pojo;
 
 public enum Categoria {
-    A("A", 18.0),
-    B("B", 14.0),
-    C("C",10.0);
+    A(1, "A", 18.0),
+    B(2, "B", 14.0),
+    C(3, "C",10.0);
     
+    private final int id;
     private final String nombre;
     private final double precio;
 
-    private Categoria(String nombre, double precio) {
+    private Categoria(int id, String nombre, double precio) {
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
