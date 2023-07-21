@@ -4,7 +4,7 @@ public enum Categoria {
     A(1, "A", 18.0),
     B(2, "B", 14.0),
     C(3, "C",10.0);
-    
+  
     private final int id;
     private final String nombre;
     private final double precio;
