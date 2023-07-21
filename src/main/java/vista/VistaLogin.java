@@ -8,22 +8,23 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import vistaModelo.ViewModelLogin;
+import vistaModelo.ViewModelGeneral;
 
 public class VistaLogin extends javax.swing.JFrame implements ActionListener {
 
-    private ViewModelLogin vmLogin;
+    private ViewModelGeneral vm;
 
     public VistaLogin() {
         lookAndFeel();
         initComponents();
-        vmLogin = new ViewModelLogin();
+        this.vm = ViewModelGeneral.getInstancia();
         bttn_registrar.addActionListener(this);
         bttn_siguiente.addActionListener(this);
     }
 
     public void iniciar() {
         pack();
+        setTitle("Inicio de Sesión / Registro de Cuenta");
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
@@ -153,9 +154,9 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
     }
 
     public void setDatosLogin() {
-        vmLogin.setNombre(getNombre());
-        vmLogin.setDNI(getDni());
-        vmLogin.setFecha(getFechaNacimiento());
+        vm.getVmLogin().setNombre(getNombre());
+        vm.getVmLogin().setDNI(getDni());
+        vm.getVmLogin().setFecha(getFechaNacimiento());
     }
 
     @Override
@@ -163,14 +164,17 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
         switch (e.getActionCommand()) {
             case "Registrar Cuenta" -> {
                 setDatosLogin();
-                vmLogin.registrarCuenta(); 
+                vm.getVmLogin().registrarCuenta();
+                showMensaje(vm.getVmLogin().getMensaje());
             }
             case "Siguiente" -> {
                 setDatosLogin();
-                vmLogin.iniciarSesion();
+                vm.getVmLogin().iniciarSesion();
+                showMensaje(vm.getVmLogin().getMensaje());
+                if (vm.getVmLogin().isAcceso()) vm.mostrarRegistroAlquiler();
             }
         }
-        showMensaje(vmLogin.getMensaje());
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

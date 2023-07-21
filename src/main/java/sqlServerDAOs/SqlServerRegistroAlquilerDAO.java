@@ -1,11 +1,11 @@
-package mySqlDAOs;
+package sqlServerDAOs;
 
 import DAOs.RegistroDAO;
 import java.sql.SQLException;
 import java.util.List;
 import pojo.RegistroAlquiler;
 
-public class MySqlRegistroDAO extends RegistroDAO<RegistroAlquiler>{
+public class SqlServerRegistroAlquilerDAO extends RegistroDAO<RegistroAlquiler>{
 
     @Override
     public RegistroAlquiler create(RegistroAlquiler obj) {
@@ -36,5 +36,5 @@ public class MySqlRegistroDAO extends RegistroDAO<RegistroAlquiler>{
     public void exeUpdate() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

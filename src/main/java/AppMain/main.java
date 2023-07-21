@@ -1,14 +1,13 @@
 package AppMain;
 
 import conexiones.SqlServerConexion;
-import vista.VistaLogin;
+import vistaModelo.ViewModelGeneral;
 
 public class main {
 
     public static void main(String[] args) {
         SqlServerConexion.setDatos("localhost", "1433", "alquilerVehiculos", "sa", "02122002");
         
-        VistaLogin vLogin = new VistaLogin();
-        vLogin.iniciar();
+        ViewModelGeneral.getInstancia().mostrarLogin();
     }
 }

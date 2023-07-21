@@ -5,7 +5,7 @@ import DAOs.RegistroDAO;
 import DAOs.VehiculoDAO;
 import conexiones.SqlServerConexion;
 import sqlServerDAOs.SqlServerClienteDAO;
-import sqlServerDAOs.SqlServerRegistroDAO;
+import sqlServerDAOs.SqlServerRegistroAlquilerDAO;
 import sqlServerDAOs.SqlServerVehiculoDAO;
 
 public class SqlServerDAOFactory extends DAOFactory {
@@ -19,7 +19,7 @@ public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
     public RegistroDAO getRegistro() {
-        SqlServerRegistroDAO registroDAO = new SqlServerRegistroDAO();
+        SqlServerRegistroAlquilerDAO registroDAO = new SqlServerRegistroAlquilerDAO();
         registroDAO.setConector(SqlServerConexion.getInstance());
         return registroDAO;
     }

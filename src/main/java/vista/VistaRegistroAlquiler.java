@@ -5,12 +5,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import vistaModelo.ViewModelGeneral;
 
-public class VistaRegistro extends javax.swing.JFrame implements ActionListener{
+public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionListener{
 
-    public VistaRegistro() {
-        initComponents();
+    private ViewModelGeneral vm;
+    
+    public VistaRegistroAlquiler() {
         lookAndFeel();
+        initComponents();
+        this.vm = ViewModelGeneral.getInstancia();
+    }
+    
+    public void iniciar() {
+        pack();
+        setTitle("Registro de Alquiler");
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -152,7 +164,7 @@ public class VistaRegistro extends javax.swing.JFrame implements ActionListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void lookAndFeel() {
+    private void lookAndFeel() {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {

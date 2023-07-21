@@ -5,10 +5,10 @@ import modelo.BusinessLogicRegistroAlquiler;
 import pojo.Cliente;
 import pojo.Vehiculo;
 
-public class ViewModelAlquiler {
+public class ViewModelRegistroAlquiler {
     private BusinessLogicRegistroAlquiler modeloRegistroAlquiler;
 
-    public ViewModelAlquiler() {
+    public ViewModelRegistroAlquiler() {
         this.modeloRegistroAlquiler = new BusinessLogicRegistroAlquiler();
     }
 

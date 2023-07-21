@@ -51,5 +51,15 @@ public class BusinessLogicCliente {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
-    }   
+    } 
+
+    public boolean isExiste() {
+        return existe;
+    }
+
+    public void setExiste(boolean existe) {
+        this.existe = existe;
+    }
+    
+    
 }

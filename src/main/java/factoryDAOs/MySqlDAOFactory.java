@@ -5,7 +5,7 @@ import DAOs.RegistroDAO;
 import DAOs.VehiculoDAO;
 import conexiones.MySqlConexion;
 import mySqlDAOs.MySqlClienteDAO;
-import mySqlDAOs.MySqlRegistroDAO;
+import mySqlDAOs.MySqlRegistroAlquilerDAO;
 import mySqlDAOs.MySqlVehiculoDAO;
 
 public class MySqlDAOFactory extends DAOFactory {
@@ -19,7 +19,7 @@ public class MySqlDAOFactory extends DAOFactory {
 
     @Override
     public RegistroDAO getRegistro() {
-        MySqlRegistroDAO registroDAO = new MySqlRegistroDAO();
+        MySqlRegistroAlquilerDAO registroDAO = new MySqlRegistroAlquilerDAO();
         registroDAO.setConector(MySqlConexion.getInstance());
         return registroDAO;
     }

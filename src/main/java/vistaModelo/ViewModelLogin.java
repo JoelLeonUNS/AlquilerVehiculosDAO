@@ -46,6 +46,10 @@ public class ViewModelLogin {
         return modeloCliente.getMensaje();
     }
     
+    public boolean isAcceso() {
+        return modeloCliente.isExiste();
+    }
+    
     public void iniciarSesion() {
         modeloCliente.iniciarSesion();
     }
