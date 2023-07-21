@@ -1,6 +1,7 @@
 package mySqlDAOs;
 
 import DAOs.VehiculoDAO;
+import java.sql.SQLException;
 import java.util.List;
 import pojo.Vehiculo;
 
@@ -28,6 +29,11 @@ public class MySqlVehiculoDAO extends VehiculoDAO<Vehiculo>{
 
     @Override
     public List<Vehiculo> listed() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void exeUpdate() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

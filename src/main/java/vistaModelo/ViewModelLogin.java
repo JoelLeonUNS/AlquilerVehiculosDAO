@@ -1,11 +1,15 @@
 package vistaModelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import modelo.BusinessLogicCliente;
 
 public class ViewModelLogin {
     private BusinessLogicCliente modeloCliente;
-    
+
+    public ViewModelLogin() {
+        this.modeloCliente = new BusinessLogicCliente();
+    }
+ 
     public int getId() {
         return modeloCliente.getCliente().getId();
     }
@@ -30,12 +34,16 @@ public class ViewModelLogin {
         modeloCliente.getCliente().setDNI(DNI);
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return modeloCliente.getCliente().getFecha();
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         modeloCliente.getCliente().setFecha(fecha);
+    }
+    
+    public String getMensaje() {
+        return modeloCliente.getMensaje();
     }
     
     public void iniciarSesion() {
@@ -45,4 +53,5 @@ public class ViewModelLogin {
     public void registrarCuenta() {
         modeloCliente.registrarCuenta();
     }
+    
 }

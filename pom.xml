@@ -11,4 +11,28 @@
         <maven.compiler.target>19</maven.compiler.target>
         <exec.mainClass>com.mycompany.alquilervehiculosdao.AlquilerVehiculosDAO</exec.mainClass>
     </properties>
+    <dependencies>   
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.2.2.jre7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+    </dependencies>
+    <name>AlquilerVehiculoDAO</name>
 </project>

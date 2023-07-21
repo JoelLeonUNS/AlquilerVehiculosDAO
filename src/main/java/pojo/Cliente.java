@@ -1,12 +1,12 @@
 package pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Cliente {
     private int id;
     private String nombre;
     private String DNI;
-    private Date fecha;
+    private LocalDate fecha;
 
     public Cliente() {
     }
@@ -35,11 +35,11 @@ public class Cliente {
         this.DNI = DNI;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 }

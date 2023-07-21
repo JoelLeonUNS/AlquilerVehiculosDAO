@@ -13,21 +13,20 @@ public class BusinessLogicCliente {
 
     public BusinessLogicCliente() {
         this.cliente = new Cliente();
-        this.dao = new SqlServerDAOFactory(); //
+        this.dao = new SqlServerDAOFactory(); // o MySql
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-    
     public void iniciarSesion(){
-        if (!cuentaExiste()) mensaje = "Datos incorrectos o cuenta inexistente.";
-        else mensaje = "Sesión iniciada con éxito.";
+        if (cuentaExiste()) setMensaje("Sesión iniciada con éxito.");
+        else  setMensaje("Datos incorrectos o cuenta inexistente.");
     }
     
     public void registrarCuenta() {
-        if (cuentaExiste()) mensaje = "La cuenta ya existe, registre otra o inicie sesión.";
-        else mensaje = "Cuenta creada con éxito.";
+        if (cuentaExiste())  setMensaje("La cuenta ya existe, registre otra o inicie sesión.");
+        else {
+            dao.getCliente().create(cliente);
+            setMensaje("Cuenta creada con éxito.");
+        }
     }
     
     private boolean cuentaExiste() {
@@ -35,9 +34,22 @@ public class BusinessLogicCliente {
             if (clienteBD.getNombre().equals(cliente.getNombre()) && clienteBD.getDNI().equals(cliente.getDNI())) {
                 existe = true;
                 break;
+            } else {
+                existe = false;
             }
         }
         return existe;
     }
     
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }   
 }

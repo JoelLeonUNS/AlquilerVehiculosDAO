@@ -1,6 +1,7 @@
 package mySqlDAOs;
 
 import DAOs.ClienteDAO;
+import java.sql.SQLException;
 import java.util.List;
 import pojo.Cliente;
 
@@ -28,6 +29,11 @@ public class MySqlClienteDAO extends ClienteDAO<Cliente>{
 
     @Override
     public List<Cliente> listed() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void exeUpdate() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

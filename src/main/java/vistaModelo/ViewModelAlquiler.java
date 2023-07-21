@@ -5,9 +5,13 @@ import modelo.BusinessLogicRegistroAlquiler;
 import pojo.Cliente;
 import pojo.Vehiculo;
 
-public class ViewModelAlquier {
+public class ViewModelAlquiler {
     private BusinessLogicRegistroAlquiler modeloRegistroAlquiler;
-    
+
+    public ViewModelAlquiler() {
+        this.modeloRegistroAlquiler = new BusinessLogicRegistroAlquiler();
+    }
+
     public int getId() {
         return modeloRegistroAlquiler.getRegistroAlquiler().getId();
     }
