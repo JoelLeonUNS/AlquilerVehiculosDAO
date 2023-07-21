@@ -2,32 +2,32 @@ package mySqlDAOs;
 
 import DAOs.RegistroDAO;
 import java.util.List;
-import pojo.Registro;
+import pojo.RegistroAlquiler;
 
-public class MySqlRegistroDAO extends RegistroDAO<Registro>{
+public class MySqlRegistroDAO extends RegistroDAO<RegistroAlquiler>{
 
     @Override
-    public Registro create(Registro obj) {
+    public RegistroAlquiler create(RegistroAlquiler obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Registro delete(Registro obj) {
+    public RegistroAlquiler delete(RegistroAlquiler obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Registro update(Registro obj) {
+    public RegistroAlquiler update(RegistroAlquiler obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Registro read(int id) {
+    public RegistroAlquiler read(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Registro> listed() {
+    public List<RegistroAlquiler> listed() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

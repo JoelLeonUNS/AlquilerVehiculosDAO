@@ -1,7 +1,11 @@
 package factoryDAOs;
 
+import DAOs.ClienteDAO;
+import DAOs.RegistroDAO;
+import DAOs.VehiculoDAO;
+
 public abstract class DAOFactory {
-    public abstract void getVehiculo();
-    public abstract void getRegistro();
-    public abstract void getCliente();
+    public abstract VehiculoDAO getVehiculo();
+    public abstract RegistroDAO getRegistro();
+    public abstract ClienteDAO getCliente();
 }

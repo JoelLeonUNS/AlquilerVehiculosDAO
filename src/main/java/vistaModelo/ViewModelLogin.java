@@ -39,10 +39,10 @@ public class ViewModelLogin {
     }
     
     public void iniciarSesion() {
-        
+        modeloCliente.iniciarSesion();
     }
     
     public void registrarCuenta() {
-        
+        modeloCliente.registrarCuenta();
     }
 }

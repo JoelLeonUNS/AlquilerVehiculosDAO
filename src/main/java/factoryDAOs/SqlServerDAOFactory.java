@@ -1,20 +1,35 @@
 package factoryDAOs;
 
+import DAOs.ClienteDAO;
+import DAOs.RegistroDAO;
+import DAOs.VehiculoDAO;
+import conexiones.SqlServerConexion;
+import sqlServerDAOs.SqlServerClienteDAO;
+import sqlServerDAOs.SqlServerRegistroDAO;
+import sqlServerDAOs.SqlServerVehiculoDAO;
+
 public class SqlServerDAOFactory extends DAOFactory {
 
     @Override
-    public void getVehiculo() {
-        
+    public VehiculoDAO getVehiculo() {
+        SqlServerVehiculoDAO vehiculoDAO = new SqlServerVehiculoDAO();
+        vehiculoDAO.setConector(SqlServerConexion.getInstance());
+        return vehiculoDAO;
     }
 
     @Override
-    public void getRegistro() {
-        
+    public RegistroDAO getRegistro() {
+        SqlServerRegistroDAO registroDAO = new SqlServerRegistroDAO();
+        registroDAO.setConector(SqlServerConexion.getInstance());
+        return registroDAO;
     }
 
     @Override
-    public void getCliente() {
-        
+    public ClienteDAO getCliente() {
+        SqlServerClienteDAO clienteDAO = new SqlServerClienteDAO();
+        clienteDAO.setConector(SqlServerConexion.getInstance());
+        return clienteDAO;
     }
+
     
 }
