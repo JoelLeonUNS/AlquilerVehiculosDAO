@@ -3,18 +3,30 @@ package vista;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import vistaModelo.ViewModelGeneral;
 
-public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionListener{
-
-    private ViewModelGeneral vm;
+public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionListener, ListSelectionListener {
+    private final ViewModelGeneral vm;
+    private DefaultComboBoxModel<String> cmbBxModelVehiculo = new DefaultComboBoxModel<>();
+    private DefaultTableModel tblModelCarro = new DefaultTableModel();
+    private DefaultTableModel tblModelMoto = new DefaultTableModel();
+    private DefaultTableModel tblModelBicicleta = new DefaultTableModel();
+    private DefaultTableModel tblModelRegistroAlquiler = new DefaultTableModel();
     
     public VistaRegistroAlquiler() {
         lookAndFeel();
         initComponents();
         this.vm = ViewModelGeneral.getInstancia();
+        
+        this.bttn_alquilar.addActionListener(this);
+        this.bttn_registro.addActionListener(this);
+        this.cmbBx_vehiculos.addActionListener(this);
     }
     
     public void iniciar() {
@@ -24,17 +36,20 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
         setResizable(false);
         setVisible(true);
     }
+    
+    public void setModelTable(DefaultTableModel tblModel){
+        tbl_vehiculoDescripcion.setModel(tblModel);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
         lbl_registro = new javax.swing.JLabel();
         lbl_nombre = new javax.swing.JLabel();
         cmbBx_vehiculos = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_registro = new javax.swing.JTable();
+        tbl_vehiculoDescripcion = new javax.swing.JTable();
         lbl_datos = new javax.swing.JLabel();
         lbl_hora = new javax.swing.JLabel();
         lbl_cantidad = new javax.swing.JLabel();
@@ -54,22 +69,12 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
 
         lbl_nombre.setText("Vehiculo");
 
-        cmbBx_vehiculos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBx_vehiculos.setModel(cmbBxModelVehiculo);
 
-        tbl_registro.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tbl_registro.setPreferredSize(new java.awt.Dimension(350, 150));
-        tbl_registro.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tbl_registro);
+        tbl_vehiculoDescripcion.setModel(tblModelCarro);
+        tbl_vehiculoDescripcion.setPreferredSize(new java.awt.Dimension(350, 150));
+        tbl_vehiculoDescripcion.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbl_vehiculoDescripcion);
 
         lbl_datos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbl_datos.setText("Datos de Registro");
@@ -82,17 +87,7 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
 
         bttn_registro.setText("Ver registro");
 
-        tbl_registroTotal.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tbl_registroTotal.setModel(tblModelRegistroAlquiler);
         tbl_registroTotal.setPreferredSize(new java.awt.Dimension(450, 350));
         tbl_registroTotal.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbl_registroTotal);
@@ -184,14 +179,27 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        switch (e.getActionCommand()) {
+            case " " -> {
+                
+            }
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            int filaSeleccionada = tbl_vehiculoDescripcion.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton bttn_alquilar;
     public javax.swing.JButton bttn_registro;
     public javax.swing.JComboBox<String> cmbBx_vehiculos;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -200,9 +208,8 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
     private javax.swing.JLabel lbl_hora;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_registro;
-    public javax.swing.JTable tbl_registro;
     public javax.swing.JTable tbl_registroTotal;
+    public javax.swing.JTable tbl_vehiculoDescripcion;
     public javax.swing.JTextField txtFld_cantidad;
     public javax.swing.JTextField txtFld_hora;
     // End of variables declaration//GEN-END:variables
-}
