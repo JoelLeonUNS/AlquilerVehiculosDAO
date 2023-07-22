@@ -166,7 +166,10 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
                 setDatosLogin();
                 vm.getVmLogin().iniciarSesion();
                 showMensaje(vm.getVmLogin().getMensaje());
-                if (vm.getVmLogin().isAcceso()) vm.mostrarRegistroAlquiler();
+                if (vm.getVmLogin().isAcceso()) {
+                    vm.getVmRegistroAlquiler().setCliente(vm.getVmLogin().getCliente());
+                    vm.mostrarRegistroAlquiler();
+                }
             }
         }
         

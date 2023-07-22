@@ -1,5 +1,7 @@
 package vistaModelo;
 
+import modelo.BusinessLogicCliente;
+import modelo.BusinessLogicRegistroAlquiler;
 import vista.VistaLogin;
 import vista.VistaRegistroAlquiler;
 
@@ -8,10 +10,28 @@ public class ViewModelGeneral {
     
     private ViewModelLogin vmLogin;
     private ViewModelRegistroAlquiler vmRegistroAlquiler;
+    
+    private BusinessLogicCliente modeloCliente;
+    private BusinessLogicRegistroAlquiler modeloRegistroAlquiler;
 
     public ViewModelGeneral() {
         this.vmLogin = new ViewModelLogin();
         this.vmRegistroAlquiler = new ViewModelRegistroAlquiler();
+        
+        this.modeloCliente = new BusinessLogicCliente();
+        this.modeloRegistroAlquiler = new BusinessLogicRegistroAlquiler();
+        
+        setModelosLogin();
+        setModelosRegistroAlquiler();
+    }
+    
+    private void setModelosLogin() {
+        vmLogin.setModeloLogin(modeloCliente);
+        vmLogin.setModeloRegistroAlquiler(modeloRegistroAlquiler);
+    }
+    
+    private void setModelosRegistroAlquiler() {
+        vmRegistroAlquiler.setModeloRegistroAlquiler(modeloRegistroAlquiler);
     }
     
     public static ViewModelGeneral getInstancia() {

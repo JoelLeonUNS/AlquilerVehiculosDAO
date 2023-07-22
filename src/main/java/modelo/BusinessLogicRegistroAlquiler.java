@@ -2,7 +2,9 @@ package modelo;
 
 import factoryDAOs.DAOFactory;
 import factoryDAOs.SqlServerDAOFactory;
+import java.util.List;
 import pojo.RegistroAlquiler;
+import pojo.Vehiculo;
 
 public class BusinessLogicRegistroAlquiler {
     private RegistroAlquiler registroAlquiler;
@@ -19,5 +21,13 @@ public class BusinessLogicRegistroAlquiler {
     
     public void alquilar() {
         dao.getRegistro().create(registroAlquiler);
-    }  
+    }
+    
+    public List<Vehiculo> getListaVehiculos() {
+        return dao.getVehiculo().listed();
+    }
+    
+    public List<RegistroAlquiler> getListaRegistrosAlquileres() {
+        return dao.getRegistro().listed();
+    }
 }

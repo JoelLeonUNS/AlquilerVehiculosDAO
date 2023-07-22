@@ -3,12 +3,22 @@ package vista;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import pojo.Bicicleta;
+import pojo.Carro;
+import pojo.Moto;
+import pojo.RegistroAlquiler;
+import pojo.Vehiculo;
 import vistaModelo.ViewModelGeneral;
 
 public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionListener, ListSelectionListener {
@@ -27,6 +37,8 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
         this.bttn_alquilar.addActionListener(this);
         this.bttn_registro.addActionListener(this);
         this.cmbBx_vehiculos.addActionListener(this);
+        
+        cargaEncabezadoTabla();
     }
     
     public void iniciar() {
@@ -39,6 +51,99 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
     
     public void setModelTable(DefaultTableModel tblModel){
         tbl_vehiculoDescripcion.setModel(tblModel);
+    }
+    
+    private void cargaEncabezadoTabla() {
+        tblModelCarro.addColumn(new String[]{"Nro", "Descripción", "Categoría", "Precio/Hora"});
+        tblModelMoto.addColumn(new String[]{"Nro", "Descripción","Precio/Hora"});
+        tblModelBicicleta.addColumn(new String[]{"Nro", "Descripción", "Precio/Hora"});
+        tblModelRegistroAlquiler.addColumn(new String[]{"Nro", "Descripción", "Cliente", "Hora Recojo", "Total Horas", "Total Dinero"});
+    }
+    
+    public void showTablaCarro(List<Carro> carros) {
+        tblModelCarro.setRowCount(0);
+        for (Carro carro : carros) {
+            addFilaCarro(carro);
+        }
+    }
+
+    private void addFilaCarro(Carro carro) {
+        if (carro != null) {
+            tblModelCarro.addRow(new Object[]{
+                carro, //
+                carro.getDescripcion(),
+                carro.getCategoria(),
+                carro.getPrecioHora()});
+        }
+    }
+    
+    public void showTablaMoto(List<Moto> motos) {
+        tblModelMoto.setRowCount(0);
+        for (Moto moto : motos) {
+            addFilaMoto(moto);
+        }
+    }
+
+    private void addFilaMoto(Moto moto) {
+        if (moto != null) {
+            tblModelMoto.addRow(new Object[]{
+                moto, //
+                moto.getDescripcion(),
+                moto.getPrecioHora()});
+        }
+    }
+    
+    public void showTablaBicicleta(List<Bicicleta> bicicletas) {
+        tblModelBicicleta.setRowCount(0);
+        for (Bicicleta bicicleta : bicicletas) {
+            addFilaMoto(bicicleta);
+        }
+    }
+
+    private void addFilaMoto(Bicicleta bicicleta) {
+        if (bicicleta != null) {
+            tblModelBicicleta.addRow(new Object[]{
+                bicicleta, //
+                bicicleta.getDescripcion(),
+                bicicleta.getPrecioHora()});
+        }
+    }
+    
+    public void showTablaRegistroAlquiler(List<RegistroAlquiler> registrosAquileres) {
+        tblModelRegistroAlquiler.setRowCount(0);
+        for (RegistroAlquiler registroAlquiler : registrosAquileres) {
+            addFilaRegistroAlquiler(registroAlquiler);
+        }
+    }
+
+    private void addFilaRegistroAlquiler(RegistroAlquiler registroAlquiler) {
+        if (registroAlquiler != null) {
+            tblModelRegistroAlquiler.addRow(new Object[]{
+                registroAlquiler, //
+                registroAlquiler.getVehiculo().getDescripcion(),
+                registroAlquiler.getCliente().getNombre(),
+                registroAlquiler.getHoraRecogida(),
+                registroAlquiler.getCantidadHoras(),
+                registroAlquiler.getVehiculo().getPrecioHora()*registroAlquiler.getCantidadHoras()});
+        }
+    }
+
+    public LocalTime getHoraRecogida() {
+        try {
+            return LocalTime.parse(txtFld_hora.getText(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+        } catch (Exception e) {
+            showMensaje("Hora incorrecta, siga el patrón: HH:mm:ss");
+            return LocalTime.now(); // Por el momento, devuelve la hora actual
+        }
+    }
+    
+    public int getCantidadHoras() {
+        return Integer.parseInt(txtFld_cantidad.getText());
+    }
+
+    
+    public void showMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +175,7 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
         lbl_nombre.setText("Vehiculo");
 
         cmbBx_vehiculos.setModel(cmbBxModelVehiculo);
+        cmbBx_vehiculos.setActionCommand("Cambiar Vehiculo");
 
         tbl_vehiculoDescripcion.setModel(tblModelCarro);
         tbl_vehiculoDescripcion.setPreferredSize(new java.awt.Dimension(350, 150));
@@ -180,8 +286,29 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case " " -> {
-                
+            case "Cambiar Vehiculo" -> {
+                switch (((String)cmbBxModelVehiculo.getSelectedItem())) {
+                    case "Carro" -> {
+                        setModelTable(tblModelCarro);
+                        showTablaCarro(vm.getVmRegistroAlquiler().getListaCarros());
+                    }
+                    case "Moto" -> {
+                        setModelTable(tblModelMoto);
+                        showTablaMoto(vm.getVmRegistroAlquiler().getListaMotos());
+                    }
+                    case "Bicicleta" -> {
+                        setModelTable(tblModelBicicleta);
+                        showTablaBicicleta(vm.getVmRegistroAlquiler().getListaBicicletas());
+                    }
+                }
+            }
+            case "Alquilar" -> {
+                vm.getVmRegistroAlquiler().setHoraRecogida(getHoraRecogida());
+                vm.getVmRegistroAlquiler().setCantidadHoras(getCantidadHoras());
+                vm.getVmRegistroAlquiler().alquilar();
+            }
+            case "Ver registro" -> {
+                showTablaRegistroAlquiler(vm.getVmRegistroAlquiler().getListaRegistrosAquileres());
             }
         }
     }
@@ -191,7 +318,7 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
         if (!e.getValueIsAdjusting()) {
             int filaSeleccionada = tbl_vehiculoDescripcion.getSelectedRow();
             if (filaSeleccionada != -1) {
-                
+                vm.getVmRegistroAlquiler().setVehiculo((Vehiculo)tbl_vehiculoDescripcion.getValueAt(filaSeleccionada, 0));
             }
         }
     }
@@ -213,3 +340,4 @@ public class VistaRegistroAlquiler extends javax.swing.JFrame implements ActionL
     public javax.swing.JTextField txtFld_cantidad;
     public javax.swing.JTextField txtFld_hora;
     // End of variables declaration//GEN-END:variables
+}

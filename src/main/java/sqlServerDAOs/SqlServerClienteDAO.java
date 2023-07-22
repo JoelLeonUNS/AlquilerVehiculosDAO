@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import pojo.Cliente;
 
 public class SqlServerClienteDAO extends ClienteDAO<Cliente>{
@@ -37,7 +36,24 @@ public class SqlServerClienteDAO extends ClienteDAO<Cliente>{
 
     @Override
     public Cliente read(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        setSql("SELECT * FROM cliente WHERE idCliente = ?");
+        Cliente cliente = null;
+        try {
+            setPs(getConector().prepareStatement(getSql()));
+            getPs().setInt(1, id);
+            setRs(getPs().executeQuery());
+
+            if (getRs().next()) {
+                cliente = new Cliente();
+                cliente.setId(getRs().getInt(1));
+                cliente.setNombre(getRs().getString(2));
+                cliente.setDNI(getRs().getString(3));
+                cliente.setFecha((getRs().getDate(4)).toLocalDate());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return cliente;
     }
 
     @Override
@@ -67,10 +83,10 @@ public class SqlServerClienteDAO extends ClienteDAO<Cliente>{
         try {
             getPs().executeUpdate();
             getConector().commit();
-            JOptionPane.showMessageDialog(null, "Transacción exitosa", "Confirmación", JOptionPane.NO_OPTION);
+            System.out.println("Transacción exitosa");
         } catch (SQLException ex) {
             getConector().rollback();
-            JOptionPane.showMessageDialog(null, "Transacciónn NO exitosa", "Error...", JOptionPane.NO_OPTION);
+            System.out.println("Transacciónn NO exitosa");
         } finally {
             if (getPs() != null) {
                 getPs().close();

@@ -2,12 +2,26 @@ package vistaModelo;
 
 import java.time.LocalDate;
 import modelo.BusinessLogicCliente;
+import modelo.BusinessLogicRegistroAlquiler;
+import pojo.Cliente;
 
 public class ViewModelLogin {
     private BusinessLogicCliente modeloCliente;
+    private BusinessLogicRegistroAlquiler modeloRegistroAlquiler;
 
     public ViewModelLogin() {
-        this.modeloCliente = new BusinessLogicCliente();
+    }
+    
+    public void setModeloLogin(BusinessLogicCliente modeloCliente) {
+        this.modeloCliente = modeloCliente;
+    }
+    
+    public void setModeloRegistroAlquiler(BusinessLogicRegistroAlquiler modeloRegistroAlquiler) {
+        this.modeloRegistroAlquiler = modeloRegistroAlquiler;
+    }
+    
+    public Cliente getCliente() {
+        return modeloCliente.getCliente();
     }
  
     public int getId() {

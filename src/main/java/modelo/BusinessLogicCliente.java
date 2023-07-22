@@ -24,7 +24,7 @@ public class BusinessLogicCliente {
     public void registrarCuenta() {
         if (cuentaExiste())  setMensaje("La cuenta ya existe, registre otra o inicie sesión.");
         else {
-            dao.getCliente().create(cliente);
+            cliente = (Cliente) dao.getCliente().create(cliente);
             setMensaje("Cuenta creada con éxito.");
         }
     }
@@ -33,6 +33,7 @@ public class BusinessLogicCliente {
         for (Cliente clienteBD : (List<Cliente>)dao.getCliente().listed()) {
             if (clienteBD.getNombre().equals(cliente.getNombre()) && clienteBD.getDNI().equals(cliente.getDNI())) {
                 existe = true;
+                cliente = clienteBD;
                 break;
             } else {
                 existe = false;

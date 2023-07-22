@@ -133,6 +133,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="cmbBxModelVehiculo" type="code"/>
         </Property>
+        <Property name="actionCommand" type="java.lang.String" value="Cambiar Vehiculo"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
