@@ -48,4 +48,9 @@ public class RegistroAlquiler {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+
+    @Override
+    public String toString() {
+        return " " + id;
+    }    
 }

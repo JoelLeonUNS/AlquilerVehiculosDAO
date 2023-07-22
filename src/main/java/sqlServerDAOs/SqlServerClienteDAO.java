@@ -17,7 +17,7 @@ public class SqlServerClienteDAO extends ClienteDAO<Cliente>{
             getPs().setString(1, obj.getNombre());
             getPs().setString(2, obj.getDNI());
             getPs().setDate(3, Date.valueOf(obj.getFecha()));
-            exeUpdate();
+            if (!exeUpdate()) obj = null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -79,19 +79,23 @@ public class SqlServerClienteDAO extends ClienteDAO<Cliente>{
     }
     
     @Override
-    public void exeUpdate() throws SQLException {
+    public boolean exeUpdate() throws SQLException {
+        boolean exito;
         try {
             getPs().executeUpdate();
             getConector().commit();
+            exito = true;
             System.out.println("Transacción exitosa");
         } catch (SQLException ex) {
             getConector().rollback();
+            exito = false;
             System.out.println("Transacciónn NO exitosa");
         } finally {
             if (getPs() != null) {
                 getPs().close();
             }
         }
+        return exito;
     }
     
 }

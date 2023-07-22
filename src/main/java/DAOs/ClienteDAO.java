@@ -16,7 +16,7 @@ public abstract class ClienteDAO<T> {
     public abstract T update(T obj);
     public abstract T read(int id);
     public abstract List<T> listed();
-    public abstract void exeUpdate() throws SQLException;
+    public abstract boolean exeUpdate() throws SQLException;
 
     public Connection getConector() {
         return conector;

@@ -33,7 +33,7 @@ public class MySqlRegistroAlquilerDAO extends RegistroDAO<RegistroAlquiler>{
     }
 
     @Override
-    public void exeUpdate() throws SQLException {
+    public boolean exeUpdate() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

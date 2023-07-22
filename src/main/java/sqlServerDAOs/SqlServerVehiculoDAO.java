@@ -39,7 +39,7 @@ public class SqlServerVehiculoDAO extends VehiculoDAO<Vehiculo> {
             if (getRs().next()) {
                 
                 switch (getRs().getString(5)) {
-                    case "Carro" -> {
+                    case "carro" -> {
                         vehiculo = new Carro();
                         switch (getRs().getInt(2)) {
                             case 1 -> {
@@ -53,10 +53,10 @@ public class SqlServerVehiculoDAO extends VehiculoDAO<Vehiculo> {
                             }
                         }
                     }
-                    case "Moto" -> {
+                    case "moto" -> {
                         vehiculo = new Moto();
                     }
-                    case "Bicicleta" -> {
+                    case "bicicleta" -> {
                         vehiculo = new Bicicleta();
                     }
                 }
@@ -80,7 +80,7 @@ public class SqlServerVehiculoDAO extends VehiculoDAO<Vehiculo> {
             Vehiculo vehiculo = null;
             while (getRs().next()) {
                 switch (getRs().getString(5)) {
-                    case "Carro" -> {
+                    case "carro" -> {
                         vehiculo = new Carro();
                         switch (getRs().getInt(2)) {
                             case 1 -> {
@@ -94,16 +94,16 @@ public class SqlServerVehiculoDAO extends VehiculoDAO<Vehiculo> {
                             }
                         }
                     }
-                    case "Moto" -> {
+                    case "moto" -> {
                         vehiculo = new Moto();
                     }
-                    case "Bicicleta" -> {
+                    case "bicicleta" -> {
                         vehiculo = new Bicicleta();
                     }
                 }
-                vehiculo.setId(getRs().getInt("idVehiculo"));
-                vehiculo.setDescripcion(getRs().getString("descripcion"));
-                vehiculo.setPrecioHora(getRs().getDouble("precioHora"));
+                vehiculo.setId(getRs().getInt(1));
+                vehiculo.setDescripcion(getRs().getString(3));
+                vehiculo.setPrecioHora(getRs().getDouble(4));
                 
                 listaVehiculos.add(vehiculo);
             }
@@ -114,19 +114,23 @@ public class SqlServerVehiculoDAO extends VehiculoDAO<Vehiculo> {
     }
 
     @Override
-    public void exeUpdate() throws SQLException {
+    public boolean exeUpdate() throws SQLException {
+        boolean exito;
         try {
             getPs().executeUpdate();
             getConector().commit();
+            exito = true;
             System.out.println("Transacción exitosa");
         } catch (SQLException ex) {
             getConector().rollback();
+            exito = false;
             System.out.println("Transacciónn NO exitosa");
         } finally {
             if (getPs() != null) {
                 getPs().close();
             }
         }
+        return exito;
     }
 
 }

@@ -22,10 +22,14 @@ public class BusinessLogicCliente {
     }
     
     public void registrarCuenta() {
-        if (cuentaExiste())  setMensaje("La cuenta ya existe, registre otra o inicie sesión.");
+        if (cuentaExiste()) setMensaje("La cuenta ya existe, registre otra o inicie sesión.");
         else {
-            cliente = (Cliente) dao.getCliente().create(cliente);
-            setMensaje("Cuenta creada con éxito.");
+            Cliente tempCliente = (Cliente) dao.getCliente().create(cliente);
+            if (tempCliente != null) {
+                cliente = tempCliente;
+                setMensaje("Cuenta creada con éxito.");
+            }
+            else setMensaje("No se pudo crear la cuenta.\n\nSugerencia: Compruebe no repetir el DNI.");
         }
     }
     

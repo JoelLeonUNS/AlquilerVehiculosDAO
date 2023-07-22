@@ -31,4 +31,11 @@ public abstract class Vehiculo {
     public void setPrecioHora(double precioHora) {
         this.precioHora = precioHora;
     }
+
+    @Override
+    public String toString() {
+        return " " + id;
+    }
+    
+    
 }

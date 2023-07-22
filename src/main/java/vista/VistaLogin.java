@@ -44,12 +44,13 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
         lbl_datos = new javax.swing.JLabel();
         lbl_registro = new javax.swing.JLabel();
         txtFld_fechaNacimiento = new javax.swing.JTextField();
+        lbl_patronFecha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bttn_registrar.setText("Registrar Cuenta");
 
-        bttn_siguiente.setText("Siguiente");
+        bttn_siguiente.setText("Iniciar Sesión");
 
         lbl_fechaNacimiento.setText("Fecha de Nacimiento:");
 
@@ -62,12 +63,17 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
 
         lbl_registro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_registro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_registro.setText("REGISTRO DE VEHICULOS");
+        lbl_registro.setText("REGISTRO / INGRESO");
+
+        lbl_patronFecha.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        lbl_patronFecha.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_patronFecha.setText("Patrón: dd/mm/aaaa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_registro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -86,9 +92,9 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
                             .addComponent(txtFld_fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtFld_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(txtFld_dni, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                .addComponent(txtFld_dni, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(lbl_patronFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(50, Short.MAX_VALUE))
-            .addComponent(lbl_registro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,6 +115,8 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFld_fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_fechaNacimiento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_patronFecha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttn_siguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -140,39 +148,58 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
     }
 
     public LocalDate getFechaNacimiento() {
-        try {
-            return LocalDate.parse(txtFld_fechaNacimiento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } catch (Exception e) {
-            showMensaje("Fecha incorrecta, siga el patrón: dd/MM/yyyy");
-            return LocalDate.now(); // por el momento
-        }
+        return LocalDate.parse(txtFld_fechaNacimiento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public void setDatosLogin() {
-        vm.getVmLogin().setNombre(getNombre());
-        vm.getVmLogin().setDNI(getDni());
-        vm.getVmLogin().setFecha(getFechaNacimiento());
+    public boolean setDatosRegistrarCuenta() {
+        boolean valido;
+        try {
+            vm.getVmLogin().setNombre(getNombre());
+            vm.getVmLogin().setDNI(getDni());
+            vm.getVmLogin().setFecha(getFechaNacimiento());
+            valido = true;
+        } catch (Exception e) {
+            valido = false;
+            showMensaje("Campo(s) no valido(s).");
+        }
+        return valido;
+    }
+
+    public boolean setDatosInicioSesion() {
+        boolean valido;
+        try {
+            vm.getVmLogin().setNombre(getNombre());
+            vm.getVmLogin().setDNI(getDni());
+            valido = true;
+        } catch (Exception e) {
+            valido = false;
+            showMensaje("Campo(s) no valido(s).");
+        }
+        return valido;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Registrar Cuenta" -> {
-                setDatosLogin();
-                vm.getVmLogin().registrarCuenta();
-                showMensaje(vm.getVmLogin().getMensaje());
+                if (setDatosRegistrarCuenta()) {
+                    vm.getVmLogin().registrarCuenta();
+                    showMensaje(vm.getVmLogin().getMensaje());
+                }
             }
-            case "Siguiente" -> {
-                setDatosLogin();
-                vm.getVmLogin().iniciarSesion();
-                showMensaje(vm.getVmLogin().getMensaje());
+            case "Iniciar Sesión" -> {
+                if (setDatosInicioSesion()) {
+                    vm.getVmLogin().iniciarSesion();
+                    showMensaje(vm.getVmLogin().getMensaje());
+                }
                 if (vm.getVmLogin().isAcceso()) {
                     vm.getVmRegistroAlquiler().setCliente(vm.getVmLogin().getCliente());
+                    dispose();
                     vm.mostrarRegistroAlquiler();
                 }
             }
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -182,6 +209,7 @@ public class VistaLogin extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JLabel lbl_dni;
     private javax.swing.JLabel lbl_fechaNacimiento;
     private javax.swing.JLabel lbl_nombre;
+    private javax.swing.JLabel lbl_patronFecha;
     private javax.swing.JLabel lbl_registro;
     public javax.swing.JTextField txtFld_dni;
     private javax.swing.JTextField txtFld_fechaNacimiento;

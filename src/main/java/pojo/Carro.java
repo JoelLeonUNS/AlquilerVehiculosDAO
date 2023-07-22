@@ -5,7 +5,7 @@ public class Carro extends Vehiculo{
     private Categoria categoria;
     
     public Carro() {
-        super.setPrecioHora(categoria.getPrecio());
+        //super.setPrecioHora(categoria.getPrecio());
     }
 
     public Categoria getCategoria() {
